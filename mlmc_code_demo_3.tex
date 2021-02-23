@@ -1,0 +1,564 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={MLMC Code Demo},
+  pdfauthor={Howard Thom},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{MLMC Code Demo}
+\author{Howard Thom}
+\date{04/02/2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
+
+Script to demonstrate EVPPI using MLMC for a simple net benefit function
+This can be applied to any economic model implemented in R. The primary
+modifications are to the generate\_input\_parameters and
+generate\_net\_benefit functions. The first creates a data frame of
+sampled parameters; the function must include the option to keep all or
+a subset of sampled parameters fixed for the whole sample. The latter
+function converts these sampled parameters into net benefits.
+
+Following these primary modifications, the remaining steps are simple.
+Modify the EVPPI\_x\_std\_p function, which uses the two primary
+functions to generate net benefits for a number of samples M*N, and
+EVPPI\_x\_l\_p, which acts as a wrapper for the general level l
+estimating function EVPPI\_l\_p and passing it EVPPI\_x\_std\_p.
+
+Finally, run mlmc.test with EVPPI\_x\_l\_p as an input and other
+specifications for the MLMC algorithm.
+
+The code is explained below.
+
+The example economic mdoel has a net benefit function for two decision
+options \[{NB_{1}(x,y) = 400x+200y}\] \[{NB_{0}(x,y) = 0}\] And these
+call two parameters \[x\sim Normal(0, 2),  y\sim Normal(2, 4)\] \#\# R
+Code
+
+First load the necessary packages. Note that bcea is loaded only for
+comparison with the MLMC estimates.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(grid)}
+\KeywordTok{require}\NormalTok{(Rcpp)}
+\KeywordTok{require}\NormalTok{(doRNG)}
+\KeywordTok{library}\NormalTok{(BCEA)}
+\KeywordTok{require}\NormalTok{(mlmc)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{mlmc-source-files}{%
+\section{MLMC source files}\label{mlmc-source-files}}
+
+These are based on GPL-2 `Matlab' code by Mike Giles
+(\url{http://people.maths.ox.ac.uk/~gilesm/mlmc/}) Authors are Louis
+Aslett
+\href{mailto:aslett@stats.ox.ac.uk}{\nolinkurl{aslett@stats.ox.ac.uk}},
+Mike Giles
+\href{mailto:Mike.Giles@maths.ox.ac.uk}{\nolinkurl{Mike.Giles@maths.ox.ac.uk}},
+and Tigran Nagapetyan
+\href{mailto:nagapetyan@stats.ox.ac.uk}{\nolinkurl{nagapetyan@stats.ox.ac.uk}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# MLMC code to calculate the value to some accuracy}
+\KeywordTok{source}\NormalTok{(}\StringTok{"mlmc.R"}\NormalTok{)}
+\CommentTok{# Test function of the convergence rates and output the MLMC results}
+\KeywordTok{source}\NormalTok{(}\StringTok{"mlmc.test.R"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{model-definition}{%
+\section{Model definition}\label{model-definition}}
+
+Here we define global parameters and the economic model functions. This
+is where the primary modifications are needed to run this script on
+other models.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Global options}
+\NormalTok{n_samples =}\StringTok{ }\DecValTok{1000} \CommentTok{# Only used for EVPI}
+\NormalTok{n_treatment <-}\StringTok{ }\DecValTok{2}
+
+\CommentTok{# Net benefit functions are  NB1(x,y) = 400x+200y, NB0(x,y) = 0}
+\NormalTok{generate_net_benefit <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(n_samples, input_parameters) \{}
+\NormalTok{  NetB <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{nrow =}\NormalTok{ n_samples, }\DataTypeTok{ncol =}\NormalTok{ n_treatment) }
+\NormalTok{  NetB[, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\DecValTok{400} \OperatorTok{*}\StringTok{ }\NormalTok{input_parameters}\OperatorTok{$}\NormalTok{x }\OperatorTok{+}\StringTok{ }\DecValTok{200} \OperatorTok{*}\StringTok{ }\NormalTok{input_parameters}\OperatorTok{$}\NormalTok{y}
+\NormalTok{  NetB[, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n_samples)}
+  
+  \KeywordTok{return}\NormalTok{(NetB)}
+\NormalTok{\}}
+
+\CommentTok{# Two random parameters x~Normal(0, 2), y~Normal(2, 4)}
+\NormalTok{generate_input_parameters <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(n_samples, }\DataTypeTok{hold_constant =} \KeywordTok{c}\NormalTok{()) \{}
+\NormalTok{  input_parameters <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{nrow =}\NormalTok{ n_samples, }\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{))}
+  \KeywordTok{colnames}\NormalTok{(input_parameters) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"x"}\NormalTok{, }\StringTok{"y"}\NormalTok{)}
+  
+  \CommentTok{# Only generate one random value for parameters in the hold_constant vector}
+  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.element}\NormalTok{(}\StringTok{"x"}\NormalTok{, hold_constant)) \{}
+\NormalTok{    input_parameters[, }\StringTok{"x"}\NormalTok{] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n_samples, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{))}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    input_parameters[, }\StringTok{"x"}\NormalTok{] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{))}
+\NormalTok{  \}}
+  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.element}\NormalTok{(}\StringTok{"y"}\NormalTok{, hold_constant)) \{}
+\NormalTok{    input_parameters[, }\StringTok{"y"}\NormalTok{] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n_samples, }\DataTypeTok{mean =} \DecValTok{2}\NormalTok{, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{4}\NormalTok{))}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    input_parameters[, }\StringTok{"y"}\NormalTok{] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{2}\NormalTok{, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{4}\NormalTok{))}
+\NormalTok{  \}}
+  
+  \KeywordTok{return}\NormalTok{(input_parameters)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{wrappers-for-parameter-and-net-benefit-functions}{%
+\section{Wrappers for parameter and net benefit
+functions}\label{wrappers-for-parameter-and-net-benefit-functions}}
+
+The two wrappers below are needed for EVPPI of \(x\) and EVPPI of \(y\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Wrapper function to generate the net benefit holding the parameters of interest constant}
+\CommentTok{# Repeats parameters of interest M times and generates random for remainder}
+\CommentTok{# Calculates net benefit based on these}
+\NormalTok{EVPPI_x_std_p<-}\ControlFlowTok{function}\NormalTok{(M,N)}
+\NormalTok{\{}
+  \CommentTok{# N is the number of outer samples, M=2^l is the number of inner samples}
+  \CommentTok{# Total number of samples is NN}
+\NormalTok{  NN <-}\StringTok{ }\NormalTok{M}\OperatorTok{*}\NormalTok{N}
+  
+\NormalTok{  input_parameters <-}\StringTok{ }\KeywordTok{generate_input_parameters}\NormalTok{(}\DataTypeTok{n_samples =}\NormalTok{ NN, }\DataTypeTok{hold_constant =} \KeywordTok{c}\NormalTok{(}\StringTok{"x"}\NormalTok{))}
+\NormalTok{  NetB <-}\StringTok{ }\KeywordTok{generate_net_benefit}\NormalTok{(}\DataTypeTok{n_samples =}\NormalTok{ NN, }\DataTypeTok{input_parameters =}\NormalTok{ input_parameters)}
+  
+  \KeywordTok{return}\NormalTok{(NetB)}
+\NormalTok{\}}
+
+\CommentTok{# Correpsonding wrapper function for y}
+\NormalTok{EVPPI_y_std_p<-}\ControlFlowTok{function}\NormalTok{(M,N)}
+\NormalTok{\{}
+\NormalTok{  NN <-}\StringTok{ }\NormalTok{M}\OperatorTok{*}\NormalTok{N}
+\NormalTok{  input_parameters <-}\StringTok{ }\KeywordTok{generate_input_parameters}\NormalTok{(}\DataTypeTok{n_samples =}\NormalTok{ NN, }\DataTypeTok{hold_constant =} \KeywordTok{c}\NormalTok{(}\StringTok{"y"}\NormalTok{))}
+\NormalTok{  NetB <-}\StringTok{ }\KeywordTok{generate_net_benefit}\NormalTok{(}\DataTypeTok{n_samples =}\NormalTok{ NN, }\DataTypeTok{input_parameters =}\NormalTok{ input_parameters)}
+  \KeywordTok{return}\NormalTok{(NetB)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{mlmc-level-l-estimator}{%
+\section{MLMC level l estimator}\label{mlmc-level-l-estimator}}
+
+Function to provide level \(l\) difference estimate using estimator
+\(d_\ell^{(n)}\) based on parameters and net benefit function.
+
+See the main paper for details but the fine \(l\) estimator is \[
+e_{\ell}^{(n)} = \max_{d\in D}\frac{1}{2^\ell}\sum_{m=1}^{2^\ell}f_d(X^{(n)},Y^{(n,m)}) - \max_{d\in D}\frac{1}{2^\ell N}\sum_{i=1}^{N}\sum_{m=1}^{2^\ell}f_d(X^{(i)},Y^{(i,m)}).
+\] While the coarse \(l-1\) estimator is \[
+e_{\ell-1}^{(n)}\ = \  \frac{1}{2}\bigg[\max_{d\in D}\frac{1}{2^{\ell-1}} \sum_{m=1}^{2^{\ell-1}} f_d(X^{(n)},Y^{(n,m)})
++ \max_{d\in D}\frac{1}{2^{\ell-1}} \sum_{m=2^{\ell-1}+1}^{2^\ell}f_d(X^{(n)},Y^{(n,m)}) \bigg]\\
+ - \max_{d\in D}\frac{1}{2^\ell N}\sum_{i=1}^{N}\sum_{m=1}^{2^\ell}f_d(X^{(i)},Y^{(i,m)})
+\]
+
+The difference estimator \(d_\ell^{(n)}\) is then \[
+d_\ell^{(n)}\ = \ \max_{d\in D}\frac{1}{2^\ell}\sum_{m=1}^{2^\ell}f_d(X^{(n)},Y^{(n,m)})\nonumber\\
+  - \frac{1}{2}\bigg[\max_{d\in D}\frac{1}{2^{\ell-1}}\sum_{m=1}^{2^{\ell-1}} f_d(X^{(n)},Y^{(n,m)})
++ \max_{d\in D}\frac{1}{2^{\ell-1}}\sum_{m=2^{\ell-1}+1}^{2^\ell}f_d(X^{(n)},Y^{(n,m)}) \bigg]
+\]
+
+The corresponding MLMC estimator of DIFF (=EVPI-EVPPI) is \[
+\widehat{\mathrm{DIFF}}_\ell^*(N_1,N_2,...,N_L) = - \sum_{\ell=1}^L d_\ell^{(n)}
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{EVPPI_l_p<-}\ControlFlowTok{function}\NormalTok{(l,N, }\DataTypeTok{EVPPI_std_p =} \OtherTok{NULL}\NormalTok{)}
+\NormalTok{\{}
+  \ControlFlowTok{if}\NormalTok{(}\KeywordTok{is.null}\NormalTok{(EVPPI_std_p)) }\KeywordTok{return}\NormalTok{(}\StringTok{"EVPPI_std_p must be supplied"}\NormalTok{)}
+  \CommentTok{# This function generates all the random samples for the EVPPI calculation}
+  \CommentTok{# Then calculates the net benefit function}
+  
+  \CommentTok{# N is the number of outer samples, M=2^l is the number of inner samples}
+\NormalTok{  sum1 <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{7}\NormalTok{)}
+  \CommentTok{# Need to store results of different stats}
+\NormalTok{  M =}\StringTok{ }\DecValTok{2}\OperatorTok{^}\NormalTok{(l }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{) }
+\NormalTok{  Np =}\StringTok{ }\KeywordTok{max}\NormalTok{(M, }\DecValTok{128}\NormalTok{)}
+  
+\NormalTok{  inputs =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\KeywordTok{ceiling}\NormalTok{(M }\OperatorTok{*}\StringTok{ }\NormalTok{N }\OperatorTok{/}\StringTok{ }\NormalTok{Np)}
+  
+  \CommentTok{# Iterate over the inputs}
+  \CommentTok{# Can add parallel computation here}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{foreach}\NormalTok{(}\DataTypeTok{i=}\NormalTok{inputs,}\DataTypeTok{.export=}\KeywordTok{c}\NormalTok{(}\StringTok{"n_samples"}\NormalTok{, }\StringTok{"n_treatment"}\NormalTok{,}
+                                        \StringTok{"generate_net_benefit"}\NormalTok{, }\StringTok{"generate_input_parameters"}\NormalTok{,}
+                                        \StringTok{'EVPPI_x_std_p'}\NormalTok{),}\DataTypeTok{.packages=}\StringTok{'MASS'}\NormalTok{) }\OperatorTok{%dorng%}\StringTok{ }\NormalTok{\{}
+\NormalTok{                                          NN=}\KeywordTok{min}\NormalTok{(Np, N}\OperatorTok{*}\NormalTok{M}\OperatorTok{-}\NormalTok{(i}\DecValTok{-1}\NormalTok{)}\OperatorTok{*}\NormalTok{Np)}
+                                          \CommentTok{#####################################################}
+                                          \KeywordTok{EVPPI_std_p}\NormalTok{(M,NN}\OperatorTok{/}\NormalTok{M)}
+                                          
+                                          \CommentTok{###########################################33########}
+\NormalTok{                                        \}   }
+  \CommentTok{#NetB <- EVPPI_x_std_p(M, N)}
+
+\CommentTok{# Convert results of foreach to NetB matrix}
+  \CommentTok{# If not interested in parallelisation could merge the foreach and for loop to simplify}
+\NormalTok{  NetB =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{, M}\OperatorTok{*}\NormalTok{N, n_treatment)}
+  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in}\NormalTok{ inputs)\{}
+\NormalTok{    NN <-}\StringTok{ }\KeywordTok{min}\NormalTok{(Np, N}\OperatorTok{*}\NormalTok{M}\OperatorTok{-}\NormalTok{(i}\DecValTok{-1}\NormalTok{)}\OperatorTok{*}\NormalTok{Np)}
+\NormalTok{    nn =}\StringTok{ }\KeywordTok{min}\NormalTok{(i}\OperatorTok{*}\NormalTok{Np,N}\OperatorTok{*}\NormalTok{M)}
+\NormalTok{    NetB[(nn}\OperatorTok{-}\NormalTok{NN}\OperatorTok{+}\DecValTok{1}\NormalTok{)}\OperatorTok{:}\NormalTok{nn,] =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(results[i]),NN,n_treatment)}
+\NormalTok{  \}}
+  \CommentTok{# Net benefit based on partial perfect information for every sample}
+\NormalTok{  NetB_max =}\StringTok{ }\KeywordTok{apply}\NormalTok{(NetB,}\DecValTok{1}\NormalTok{,max)}
+  \CommentTok{# Expected value of max over each set of inner samples}
+\NormalTok{  NetB_max_sample =}\StringTok{ }\KeywordTok{apply}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(NetB_max,N,M,}\DataTypeTok{byrow=}\OtherTok{TRUE}\NormalTok{),}\DecValTok{1}\NormalTok{,mean)}
+  \CommentTok{# Matrices needed for antithetic variable variance reduction}
+\NormalTok{  NetB_low_c_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{,N,n_treatment)}
+\NormalTok{  NetB_low_c_}\DecValTok{2}\NormalTok{ =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{,N,n_treatment)}
+\NormalTok{  NetB_low_f =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{,N,n_treatment)}
+  \ControlFlowTok{for}\NormalTok{(n }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{n_treatment)\{}
+    \CommentTok{# Net benefts for treatment n in matrix of size outer by inner samples}
+\NormalTok{    temp =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(NetB[,n],N,M,}\DataTypeTok{byrow=}\OtherTok{TRUE}\NormalTok{)}
+    \CommentTok{# Average net benefit over each set of inner samples}
+\NormalTok{    NetB_low_f[,n] =}\StringTok{ }\KeywordTok{apply}\NormalTok{(temp,}\DecValTok{1}\NormalTok{,mean)}
+    \CommentTok{# Antithetic variable construction splits samples into first and second halves}
+    \CommentTok{# Split formula into cases l=0 and l>0}
+    \ControlFlowTok{if}\NormalTok{(M}\OperatorTok{==}\DecValTok{2}\NormalTok{)\{}
+\NormalTok{      NetB_low_c_}\DecValTok{1}\NormalTok{[,n] =}\StringTok{ }\NormalTok{temp[,}\DecValTok{1}\NormalTok{]}
+\NormalTok{      NetB_low_c_}\DecValTok{2}\NormalTok{[,n] =}\StringTok{ }\NormalTok{temp[,}\DecValTok{2}\NormalTok{]}
+\NormalTok{    \}}\ControlFlowTok{else}\NormalTok{\{}
+      \ControlFlowTok{if}\NormalTok{(N}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+\NormalTok{        NetB_low_c_}\DecValTok{1}\NormalTok{[,n] =}\StringTok{ }\KeywordTok{sum}\NormalTok{(temp[,}\DecValTok{1}\OperatorTok{:}\KeywordTok{max}\NormalTok{(M}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{)])}\OperatorTok{/}\KeywordTok{max}\NormalTok{(M}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\NormalTok{        NetB_low_c_}\DecValTok{2}\NormalTok{[,n] =}\StringTok{ }\KeywordTok{sum}\NormalTok{(temp[,}\KeywordTok{min}\NormalTok{(M}\OperatorTok{/}\DecValTok{2}\OperatorTok{+}\DecValTok{1}\NormalTok{,M}\DecValTok{-1}\NormalTok{)}\OperatorTok{:}\NormalTok{M])}\OperatorTok{/}\NormalTok{(M}\OperatorTok{-}\KeywordTok{min}\NormalTok{(M}\OperatorTok{/}\DecValTok{2}\OperatorTok{+}\DecValTok{1}\NormalTok{,M}\DecValTok{-1}\NormalTok{)}\OperatorTok{+}\DecValTok{1}\NormalTok{)  }
+\NormalTok{      \}}\ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{        NetB_low_c_}\DecValTok{1}\NormalTok{[,n] =}\StringTok{ }\KeywordTok{rowSums}\NormalTok{(temp[,}\DecValTok{1}\OperatorTok{:}\KeywordTok{max}\NormalTok{(M}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{)])}\OperatorTok{/}\KeywordTok{max}\NormalTok{(M}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\NormalTok{        NetB_low_c_}\DecValTok{2}\NormalTok{[,n] =}\StringTok{ }\KeywordTok{rowSums}\NormalTok{(temp[,}\KeywordTok{min}\NormalTok{(M}\OperatorTok{/}\DecValTok{2}\OperatorTok{+}\DecValTok{1}\NormalTok{,M}\DecValTok{-1}\NormalTok{)}\OperatorTok{:}\NormalTok{M])}\OperatorTok{/}\NormalTok{(M}\OperatorTok{-}\KeywordTok{min}\NormalTok{(M}\OperatorTok{/}\DecValTok{2}\OperatorTok{+}\DecValTok{1}\NormalTok{,M}\DecValTok{-1}\NormalTok{)}\OperatorTok{+}\DecValTok{1}\NormalTok{)        }
+\NormalTok{      \}}
+
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{  NetB_low_f_sample =}\StringTok{ }\KeywordTok{apply}\NormalTok{(NetB_low_f,}\DecValTok{1}\NormalTok{,max)}
+  \CommentTok{# Put antithetic variable construction together}
+\NormalTok{  NetB_low_c_sample =}\StringTok{ }\NormalTok{(}\KeywordTok{apply}\NormalTok{(NetB_low_c_}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,max)}\OperatorTok{+}\KeywordTok{apply}\NormalTok{(NetB_low_c_}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,max))}\OperatorTok{/}\DecValTok{2}
+  \CommentTok{# Fine estimator (i.e. e_l^(n))}
+\NormalTok{  Pf =}\StringTok{ }\NormalTok{NetB_max_sample }\OperatorTok{-}\StringTok{ }\NormalTok{NetB_low_f_sample}
+  \CommentTok{# Coarse estimator (i.e. e_(l-1)^(n))}
+\NormalTok{  Pc =}\StringTok{ }\NormalTok{NetB_max_sample }\OperatorTok{-}\StringTok{ }\NormalTok{NetB_low_c_sample}
+  
+  \CommentTok{# Sum the moments of the estimator }
+  \CommentTok{# First is the mean of the difference estimator d_l^(n)}
+  \CommentTok{# Summing these difference estimates gives an estimate of DIFF= EVPI-EVPPI}
+\NormalTok{  sum1[}\DecValTok{1}\NormalTok{] =}\StringTok{ }\NormalTok{sum1[}\DecValTok{1}\NormalTok{] }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{(Pf}\OperatorTok{-}\NormalTok{Pc);}
+\NormalTok{  sum1[}\DecValTok{2}\NormalTok{] =}\StringTok{ }\NormalTok{sum1[}\DecValTok{2}\NormalTok{] }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{((Pf}\OperatorTok{-}\NormalTok{Pc)}\OperatorTok{^}\DecValTok{2}\NormalTok{);}
+\NormalTok{  sum1[}\DecValTok{3}\NormalTok{] =}\StringTok{ }\NormalTok{sum1[}\DecValTok{3}\NormalTok{] }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{((Pf}\OperatorTok{-}\NormalTok{Pc)}\OperatorTok{^}\DecValTok{3}\NormalTok{);}
+\NormalTok{  sum1[}\DecValTok{4}\NormalTok{] =}\StringTok{ }\NormalTok{sum1[}\DecValTok{4}\NormalTok{] }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{((Pf}\OperatorTok{-}\NormalTok{Pc)}\OperatorTok{^}\DecValTok{4}\NormalTok{);}
+\NormalTok{  sum1[}\DecValTok{5}\NormalTok{] =}\StringTok{ }\NormalTok{sum1[}\DecValTok{5}\NormalTok{] }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{(Pf);}
+\NormalTok{  sum1[}\DecValTok{6}\NormalTok{] =}\StringTok{ }\NormalTok{sum1[}\DecValTok{6}\NormalTok{] }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{(Pf}\OperatorTok{^}\DecValTok{2}\NormalTok{);}
+\NormalTok{  sum1[}\DecValTok{7}\NormalTok{] =}\StringTok{ }\NormalTok{sum1[}\DecValTok{7}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{M}\OperatorTok{*}\NormalTok{N;}
+  
+  \KeywordTok{return}\NormalTok{(sum1)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{wrapper-for-evppi_l_p}{%
+\section{Wrapper for EVPPI\_l\_p}\label{wrapper-for-evppi_l_p}}
+
+These functions are needed for the EVPPI of \(x\) and EVPPI of \(y\) and
+pass the necessary EVPPI\_std\_p to the level l estimator EVPPI\_l\_p
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Wrapper function for EVPPI of x}
+\NormalTok{EVPPI_x_l_p <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{l =}\NormalTok{ l,}\DataTypeTok{N =}\NormalTok{ N) \{}
+  \KeywordTok{return}\NormalTok{(}\KeywordTok{EVPPI_l_p}\NormalTok{(l, N, }\DataTypeTok{EVPPI_std_p =}\NormalTok{ EVPPI_x_std_p))}
+\NormalTok{\}}
+\CommentTok{# Wrapper function for EVPPI of y}
+\NormalTok{EVPPI_y_l_p <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{l =}\NormalTok{ l,}\DataTypeTok{N =}\NormalTok{ N) \{}
+  \KeywordTok{return}\NormalTok{(}\KeywordTok{EVPPI_l_p}\NormalTok{(l, N, }\DataTypeTok{EVPPI_std_p =}\NormalTok{ EVPPI_y_std_p))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{evpi-and-evppi-by-regression}{%
+\section{EVPI and EVPPI by
+regression}\label{evpi-and-evppi-by-regression}}
+
+For comparison, we use GP model from BCEA to estimate the EVPPI of \(x\)
+and \(y\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# EVPI is about 121.08}
+\NormalTok{bcea_object}\OperatorTok{$}\NormalTok{evi}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 124.7058
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# EVPPI of x is about 63/74/91/75/65  Average 73.6}
+\NormalTok{bcea_evppi_x}\OperatorTok{$}\NormalTok{evppi}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 84.82218
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# EVPPI for y is about 23/34/46/37/20 Average 32}
+\NormalTok{bcea_evppi_y}\OperatorTok{$}\NormalTok{evppi}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 35.57351
+\end{verbatim}
+
+\hypertarget{evppi-of-x-using-mlmc}{%
+\section{EVPPI of x using MLMC}\label{evppi-of-x-using-mlmc}}
+
+Now use the mlmc.test() function to estimate the EVPPI of \(x\).
+
+M refinement cost factor \(2^{\gamma}\) in the general MLMC Throrem) N
+number of samples to use in the tests L number of levels to use in the
+tests N0 initial number of samples which are used for the first 3 levels
+and for any subsequent levels which are automatically added. Must be
+\textgreater0 eps.v a vector of all the target accuracies in the tests.
+Must all be \textgreater0 Lmin the minimum level of refinement. Must be
+\(\ge 2\) Lmax the maximum level of refinement. Must be \(\ge\) Lmin
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{33}\NormalTok{)}
+\NormalTok{tst_x <-}\StringTok{ }\KeywordTok{mlmc.test}\NormalTok{(EVPPI_x_l_p, }\DataTypeTok{M=}\DecValTok{2}\NormalTok{, }\DataTypeTok{N=}\DecValTok{1024}\NormalTok{,}
+                          \DataTypeTok{L=}\DecValTok{4}\NormalTok{, }\DataTypeTok{N0=}\DecValTok{1024}\NormalTok{,}
+                          \DataTypeTok{eps.v=}\KeywordTok{c}\NormalTok{(}\DecValTok{60}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+                          \DataTypeTok{Lmin=}\DecValTok{2}\NormalTok{, }\DataTypeTok{Lmax=}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## **********************************************************
+## *** Convergence tests, kurtosis, telescoping sum check ***
+## **********************************************************
+## 
+##  l   ave(Pf-Pc)    ave(Pf)   var(Pf-Pc)    var(Pf)    kurtosis     check 
+## ---------------------------------------------------------------------------
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: executing %dopar% sequentially: no parallel backend registered
+\end{verbatim}
+
+\begin{verbatim}
+##  0   2.3338e+01  2.3338e+01  3.3343e+03  3.3343e+03  0.0000e+00  0.0000e+00 
+##  1   1.0059e+01  2.9487e+01  9.4862e+02  2.5981e+03  1.8955e+01  2.9895e-01 
+##  2   5.0736e+00  3.8240e+01  3.4724e+02  2.3560e+03  2.6048e+01  3.3219e-01 
+##  3   2.6050e+00  4.0921e+01  1.3008e+02  2.2648e+03  4.1764e+01  7.4623e-03 
+##  4   1.2841e+00  4.4510e+01  4.4248e+01  2.2174e+03  5.7800e+01  2.4267e-01 
+## 
+## ******************************************************
+## *** Linear regression estimates of MLMC parameters ***
+## ******************************************************
+## 
+##  alpha in 0.991101  (exponent for (MLMC weak convergence)
+##  beta  in 1.486120  (exponent for (MLMC variance) 
+##  gamma in 1.000000  (exponent for (MLMC cost) 
+## 
+## ***************************** 
+## *** MLMC complexity tests *** 
+## ***************************** 
+## 
+##   eps       value   mlmc_cost   std_cost  savings     N_l 
+## --------------------------------------------------------- 
+## 60.0000  3.4719e+01  1.434e+04  6.981e+00     0.00      1024      1024      1024
+## 30.0000  3.8124e+01  1.434e+04  2.792e+01     0.00      1024      1024      1024
+## 15.0000  3.5871e+01  1.434e+04  1.117e+02     0.01      1024      1024      1024
+## 7.0000  3.0580e+01  1.461e+04  9.860e+02     0.07      1024      1024      1024        17
+## 3.0000  4.2076e+01  1.919e+04  1.051e+04     0.55      1677      1024      1024       136        43
+## 1.0000  4.0766e+01  1.424e+05  3.784e+05     2.66     15466      7219      2711      1424       548       196        63
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# EVPPI is lowest eps estimate }
+\CommentTok{# Remember MLMC estimates DIFF from EVPI so need to subtract this from total EVPPI}
+\CommentTok{# The EVPI in this case using 10^7 samples is 121}
+\DecValTok{121} \OperatorTok{-}\StringTok{ }\NormalTok{tst_x}\OperatorTok{$}\NormalTok{P[}\KeywordTok{length}\NormalTok{(tst_x}\OperatorTok{$}\NormalTok{P)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 80.23447
+\end{verbatim}
+
+\hypertarget{evppi-of-y-using-mlmc}{%
+\section{EVPPI of y using MLMC}\label{evppi-of-y-using-mlmc}}
+
+Now use the mlmc.test() function to estimate the EVPPI of \(y\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Calculate the EVPPI for y}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{tst_y <-}\StringTok{ }\KeywordTok{mlmc.test}\NormalTok{(EVPPI_y_l_p, }\DataTypeTok{M=}\DecValTok{2}\NormalTok{, }\DataTypeTok{N=}\DecValTok{1024}\NormalTok{,}
+                   \DataTypeTok{L=}\DecValTok{4}\NormalTok{, }\DataTypeTok{N0=}\DecValTok{1024}\NormalTok{,}
+                   \DataTypeTok{eps.v=}\KeywordTok{c}\NormalTok{(}\DecValTok{60}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{7}\NormalTok{),}
+                  \DataTypeTok{Lmin=}\DecValTok{2}\NormalTok{, }\DataTypeTok{Lmax=}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## **********************************************************
+## *** Convergence tests, kurtosis, telescoping sum check ***
+## **********************************************************
+## 
+##  l   ave(Pf-Pc)    ave(Pf)   var(Pf-Pc)    var(Pf)    kurtosis     check 
+## ---------------------------------------------------------------------------
+##  0   4.7667e+01  4.7667e+01  8.7237e+03  8.7237e+03  0.0000e+00  0.0000e+00 
+##  1   2.5744e+01  7.2458e+01  3.3345e+03  7.1803e+03  1.2056e+01  4.3084e-02 
+##  2   1.0585e+01  7.5732e+01  9.8151e+02  5.3056e+03  2.1614e+01  4.1284e-01 
+##  3   6.4307e+00  8.5748e+01  4.6089e+02  4.9403e+03  2.4915e+01  2.3240e-01 
+##  4   3.2644e+00  8.8795e+01  1.7613e+02  4.3195e+03  3.9201e+01  1.5534e-02 
+## 
+## ******************************************************
+## *** Linear regression estimates of MLMC parameters ***
+## ******************************************************
+## 
+##  alpha in 0.848566  (exponent for (MLMC weak convergence)
+##  beta  in 1.239168  (exponent for (MLMC variance) 
+##  gamma in 1.000000  (exponent for (MLMC cost) 
+## 
+## ***************************** 
+## *** MLMC complexity tests *** 
+## ***************************** 
+## 
+##   eps       value   mlmc_cost   std_cost  savings     N_l 
+## --------------------------------------------------------- 
+## 60.0000  8.1438e+01  1.434e+04  1.572e+01     0.00      1024      1024      1024
+## 30.0000  8.1093e+01  1.434e+04  6.288e+01     0.00      1024      1024      1024
+## 15.0000  9.3721e+01  1.539e+04  1.638e+03     0.11      1024      1024      1024        24        11         5
+## 7.0000  9.1478e+01  1.626e+04  3.761e+03     0.23      1024      1024      1024        66        27
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# EVPPI is lowest eps estimate }
+\CommentTok{# Remember MLMC estimates DIFF from EVPI so need to subtract this from total EVPPI}
+\CommentTok{# The EVPI in this case using 10^7 samples is 121}
+\DecValTok{121} \OperatorTok{-}\StringTok{ }\NormalTok{tst_y}\OperatorTok{$}\NormalTok{P[}\KeywordTok{length}\NormalTok{(tst_y}\OperatorTok{$}\NormalTok{P)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 29.52207
+\end{verbatim}
+
+\end{document}
